@@ -20,7 +20,11 @@
         position: fixed;
         top: 0;
         left: 0;
+        right: 0;
         padding: 10px;
+        display: flex;
+        justify-content: space-between; /* Logo on left, button on right */
+        align-items: center;
         z-index: 1000;
     }
     #logo {
@@ -33,40 +37,81 @@
         text-align: center;
     }
 
+    /* Define @font-face for your custom font */
     @font-face {
         font-family: 'my1';
         src: url('my1.ttf') format('truetype');
+    }
+
+    /* Styles for the slide-out menu */
+    #menu {
+        position: fixed;
+        top: 0;
+        right: -300px; /* Start off-screen */
+        width: 300px;
+        height: 100%;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        transition: right 0.3s ease; /* Add transition for smooth sliding */
+        z-index: 999;
+    }
+
+    /* Styles for the menu button */
+    #menuButton {
+        cursor: pointer;
+        font-size: 30px; /* Adjust font size */
+        padding: 5px; /* Adjust padding */
+    }
+
+    /* Styles for the menu items */
+    .menuItem {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        cursor: pointer; /* Add cursor pointer */
+    }
+
+    /* Highlight effect for menu items on hover */
+    .menuItem:hover {
+        background-color: #f0f0f0;
     }
 </style>
 </head>
 <body>
 
 <div id="header">
-    <img id="logo" src="LumiKa.png" alt="Логотип">
+    <img id="logo" src="Lumika.png" alt="Логотип">
+    <div id="menuButton">&#9776;</div> <!-- Unicode for hamburger icon -->
 </div>
 
 <div id="countdown"></div>
 
-<script>
+<div id="menu">
+    <!-- Test buttons -->
+    <div class="menuItem" id="button1">Button 1</div>
+    <div class="menuItem" id="button2">Button 2</div>
+    <div class="menuItem" id="button3">Button 3</div>
+</div>
 
+<script>
+// Установка даты окончания таймера
 var countDownDate = new Date("July 25, 2024 00:00:00").getTime();
 
-
+// Обновление таймера каждую секунду
 var x = setInterval(function() {
 
-
+  // Получение текущей даты и времени
   var now = new Date().getTime();
     
-
+  // Расчет оставшегося времени
   var distance = countDownDate - now;
     
-
+  // Расчет дней, часов, минут и секунд
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
     
-
+  // Определение правильной формы слова для числа дней
   var daysWord;
   switch (days % 10) {
     case 1:
@@ -82,7 +127,7 @@ var x = setInterval(function() {
       break;
   }
   
-
+  // Определение правильной формы слова для числа часов
   var hoursWord;
   switch (hours % 10) {
     case 1:
@@ -98,7 +143,7 @@ var x = setInterval(function() {
       break;
   }
   
-
+  // Определение правильной формы слова для числа минут
   var minutesWord;
   switch (minutes % 10) {
     case 1:
@@ -114,7 +159,7 @@ var x = setInterval(function() {
       break;
   }
   
-
+  // Определение правильной формы слова для числа секунд
   var secondsWord;
   switch (seconds % 10) {
     case 1:
@@ -130,16 +175,31 @@ var x = setInterval(function() {
       break;
   }
     
-
+  // Отображение таймера в элементе с id="countdown"
   document.getElementById("countdown").innerHTML = "До конца 1 сезона: " + days + " " + daysWord + " " + hours + " " + hoursWord + " "
   + minutes + " " + minutesWord + " " + seconds + " " + secondsWord;
     
-
+  // Если время истекло, отобразить сообщение
   if (distance < 0) {
     clearInterval(x);
     document.getElementById("countdown").innerHTML = "ВРЕМЯ ИСТЕКЛО";
   }
 }, 1000);
+
+// JavaScript for opening/closing the menu
+document.getElementById("menuButton").addEventListener("click", function() {
+    var menu = document.getElementById("menu");
+    if (menu.style.right === "0px") {
+        menu.style.right = "-300px"; // Slide out
+    } else {
+        menu.style.right = "0px"; // Slide in
+    }
+});
+
+// Add click event listener to the first menu item
+document.getElementById("button1").addEventListener("click", function() {
+    window.location.href = "https://example.com"; // Replace example.com with your desired URL
+});
 </script>
 
 </body>
