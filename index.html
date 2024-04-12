@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1 Сезон LumiKa</title>
+<link rel="icon" type="image/png" href="LumiKa.png">
+<style>
+    body {
+        background-color: lightblue;
+        margin: 0;
+        padding: 0;
+        font-family: 'my1', Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    #header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 10px;
+        z-index: 1000;
+    }
+    #logo {
+        width: 100px;
+        height: auto;
+    }
+    #countdown {
+        font-size: 50px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    /* Define @font-face for your custom font */
+    @font-face {
+        font-family: 'my1';
+        src: url('my1.ttf') format('truetype');
+    }
+</style>
+</head>
+<body>
+
+<div id="header">
+    <img id="logo" src="Lumika.png" alt="Логотип">
+</div>
+
+<div id="countdown"></div>
+
+<script>
+// Установка даты окончания таймера
+var countDownDate = new Date("July 25, 2024 00:00:00").getTime();
+
+// Обновление таймера каждую секунду
+var x = setInterval(function() {
+
+  // Получение текущей даты и времени
+  var now = new Date().getTime();
+    
+  // Расчет оставшегося времени
+  var distance = countDownDate - now;
+    
+  // Расчет дней, часов, минут и секунд
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+  // Определение правильной формы слова для числа дней
+  var daysWord;
+  switch (days % 10) {
+    case 1:
+      daysWord = "день";
+      break;
+    case 2:
+    case 3:
+    case 4:
+      daysWord = "дня";
+      break;
+    default:
+      daysWord = "дней";
+      break;
+  }
+  
+  // Определение правильной формы слова для числа часов
+  var hoursWord;
+  switch (hours % 10) {
+    case 1:
+      hoursWord = "час";
+      break;
+    case 2:
+    case 3:
+    case 4:
+      hoursWord = "часа";
+      break;
+    default:
+      hoursWord = "часов";
+      break;
+  }
+  
+  // Определение правильной формы слова для числа минут
+  var minutesWord;
+  switch (minutes % 10) {
+    case 1:
+      minutesWord = "минута";
+      break;
+    case 2:
+    case 3:
+    case 4:
+      minutesWord = "минуты";
+      break;
+    default:
+      minutesWord = "минут";
+      break;
+  }
+  
+  // Определение правильной формы слова для числа секунд
+  var secondsWord;
+  switch (seconds % 10) {
+    case 1:
+      secondsWord = "секунда";
+      break;
+    case 2:
+    case 3:
+    case 4:
+      secondsWord = "секунды";
+      break;
+    default:
+      secondsWord = "секунд";
+      break;
+  }
+    
+  // Отображение таймера в элементе с id="countdown"
+  document.getElementById("countdown").innerHTML = "До конца 1 сезона: " + days + " " + daysWord + " " + hours + " " + hoursWord + " "
+  + minutes + " " + minutesWord + " " + seconds + " " + secondsWord;
+    
+  // Если время истекло, отобразить сообщение
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("countdown").innerHTML = "ВРЕМЯ ИСТЕКЛО";
+  }
+}, 1000);
+</script>
+
+</body>
+</html>
