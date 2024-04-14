@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LumiKa RG Map</title>
+    <link rel="icon" type="image/png" href="LumiKa.png">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #map-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transform-origin: center center;
+            transition: transform 0.3s ease-in-out; /* Smooth zoom transition */
+        }
+        .zoom-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .zoom-buttons button {
+            margin-right: 5px;
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <img id="map-image" src="map2.jpg" alt="Interactive Map">
+    <div class="zoom-buttons">
+        <button id="zoom-in">+</button>
+        <button id="zoom-out">-</button>
+    </div>
+    <script>
+        const mapImage = document.getElementById('map-image');
+        let zoomLevel = 1;
+        let translateX = 0, translateY = 0;
+
+        // Update map position
+        const updateMapPosition = () => {
+            mapImage.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`;
+        };
+
+        // Zoom in
+        document.getElementById('zoom-in').addEventListener('click', () => {
+            zoomLevel += 0.1;
+            updateMapPosition();
+        });
+
+        // Zoom out
+        document.getElementById('zoom-out').addEventListener('click', () => {
+            zoomLevel -= 0.1;
+            updateMapPosition();
+        });
+
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            const step = 50 / zoomLevel;
+            switch (e.key) {
+                case 'w':
+                    translateY += step;
+                    break;
+                case 'a':
+                    translateX += step;
+                    break;
+                case 's':
+                    translateY -= step;
+                    break;
+                case 'd':
+                    translateX -= step;
+                    break;
+                default:
+                    return;
+            }
+            updateMapPosition();
+        });
+
+        // Mouse wheel zoom control
+        document.addEventListener('wheel', (e) => {
+            if (e.deltaY < 0) {
+                zoomLevel += 0.1;
+            } else {
+                zoomLevel -= 0.1;
+            }
+            updateMapPosition();
+        });
+    </script>
+</body>
+</html>
