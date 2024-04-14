@@ -14,6 +14,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background-color: #59af59;
         }
         #map-image {
             width: 100%;
@@ -33,6 +34,11 @@
             font-size: 16px;
             cursor: pointer;
         }
+        .toggle-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -41,15 +47,29 @@
         <button id="zoom-in">+</button>
         <button id="zoom-out">-</button>
     </div>
+    <button class="toggle-button" id="toggle-map">RG Info
+    </button>
     <script>
         const mapImage = document.getElementById('map-image');
         let zoomLevel = 1;
         let translateX = 0, translateY = 0;
+        let currentMap = 'map2.jpg';
 
         // Update map position
         const updateMapPosition = () => {
             mapImage.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`;
         };
+
+        // Toggle map
+        document.getElementById('toggle-map').addEventListener('click', () => {
+            if (currentMap === 'map2.jpg') {
+                mapImage.src = 'map3.jpg';
+                currentMap = 'map3.jpg';
+            } else {
+                mapImage.src = 'map2.jpg';
+                currentMap = 'map2.jpg';
+            }
+        });
 
         // Zoom in
         document.getElementById('zoom-in').addEventListener('click', () => {
